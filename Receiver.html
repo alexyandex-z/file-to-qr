@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>📥 Receive a File</title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+    <script type="text/javascript" src="utils/instascan.min.js"></script>
+    <!-- <script type="text/javascript" src="Blob.js"></script> -->
+    <script type="text/javascript" src="utils/FileSaver.min.js"></script>
+
+    <script type="text/javascript" src="utils/quiet/quiet.js"></script>
+    <script type="text/javascript" src="QuietReceiver.js"></script>
+    <script
+      async
+      type="text/javascript"
+      src="utils/quiet/quiet-emscripten.js"
+    ></script>
+  </head>
+
+  <body>
+    <h1>This computer will receive a file</h1>
+    <h2>Sound Setup</h2>
+    <ul>
+      <li>Plug in ear buds to this computer</li>
+      <li>
+        Set the volume to 100%. <strong>Warning:</strong> Do not put the
+        sound-producing parts of the earbuds to your ears!
+      </li>
+      <li>
+        Place the ear buds close to the microphone of the file-sending computer
+      </li>
+    </ul>
+    <h2>Camera Setup</h2>
+    <ul>
+      <li>Plug in a high resolution USB camera to this computer</li>
+      <li id="cameras-list">
+        <select id="cameras"></select>
+      </li>
+      <li>
+        Point the camera to the other computer, facing the QR code <br />
+        <video id="preview"></video>
+      </li>
+      <li>
+        Each time a chunk of a file is received via a QR code, this computer
+        will play a loud beeping sound. This is an indicator to the sender
+        computer that the next chunk of a file can be sent.
+      </li>
+      <li>This repeates until the entire file is fully sent</li>
+      <li>The file will be automatically downloaded one fully received</li>
+    </ul>
+
+    <script type="text/javascript">
+      var lastReceivedFile = "";
+      Instascan.Camera.getCameras()
+        .then(function (cameras) {
+          if (cameras.length > 1) {
+            let camerasSelect = document.getElementById("cameras");
+            camerasSelect.addEventListener("change", function () {
+              startReceiving();
+            });
+            camerasSelect.innerHTML += "<option>SELECT A CAMERA</option>";
+            cameras.forEach(function (camera, index) {
+              camerasSelect.innerHTML +=
+                "<option value=" + index + ">" + camera.name + "</option>";
+            });
+          } else {
+            document.getElementById("cameras-list").hidden = true;
+            startReceiving();
+          }
+        })
+        .catch(function (e) {
+          console.error(e);
+        });
+
+      function startReceiving() {
+        document.getElementById("cameras-list").hidden = true;
+        ////////// QR CODE READER VIA THE WEB CAMERA /////////////
+        var fileChunksAsBase64 = "";
+        var lastFileChunkAsBase64 = "";
+        let scanner = new Instascan.Scanner({
+          video: document.getElementById("preview"),
+        });
+        scanner.addListener("scan", function (content) {
+          console.log(content);
+          if (content === "FILE START") {
+            fileChunksAsBase64 = "";
+            playAcceptSequence();
+            // TODO: Keep playing untill new QR shows up
+          } else if (content.indexOf("FILE END") !== -1) {
+            console.log(fileChunksAsBase64);
+            downloadFile(
+              fileChunksAsBase64,
+              content.split("|")[1],
+              content.split("|")[2]
+            );
+            fileChunksAsBase64 = "";
+          } else if (lastFileChunkAsBase64 !== content) {
+            lastFileChunkAsBase64 = content;
+            fileChunksAsBase64 += content;
+            console.log(fileChunksAsBase64);
+            playAcceptSequence();
+            // TODO: Keep playing untill new QR shows up
+          } else {
+            playAcceptSequence();
+          }
+        });
+        Instascan.Camera.getCameras()
+          .then(function (cameras) {
+            if (cameras.length > 1) {
+              const cameraIndex = document.querySelector(
+                "#cameras-list option:checked"
+              ).value;
+              scanner.start(cameras[cameraIndex]);
+            } else if (cameras.length === 1) {
+              scanner.start(cameras[0]);
+            } else {
+              console.error("No cameras found.");
+            }
+          })
+          .catch(function (e) {
+            console.error(e);
+          });
+      }
+    </script>
+
+    <script>
+      /// BLOB DOWNLOAD
+      function b64toBlob(dataURI, fileType) {
+        var byteString = atob(dataURI);
+        var ab = new ArrayBuffer(byteString.length);
+        var ia = new Uint8Array(ab);
+
+        for (var i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i);
+        }
+        return new Blob([ab], { type: fileType });
+      }
+      function downloadFile(fileAsBase64, fileName, fileType) {
+        let blob = b64toBlob(fileAsBase64, fileType);
+        if (lastReceivedFile !== fileName) {
+          saveAs(blob, fileName);
+          lastReceivedFile = fileName;
+        }
+      }
+    </script>
+  </body>
+</html>

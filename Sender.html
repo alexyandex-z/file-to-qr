@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>📤 Send a File</title>
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <script type="text/javascript" src="utils/quiet/quiet.js"></script>
+  <script type="text/javascript" src="QuietSender.js"></script>
+  <script async type="text/javascript" src="utils/quiet/quiet-emscripten.js"></script>
+  <script async type="text/javascript" src="utils/quiet/libfec.js"></script>
+</head>
+
+<body>
+  <div class="hidden" data-quiet-profile-name="audible"></div>
+  <div class="wrapper">
+    <header>
+      <h1>This computer will send a file</h1>
+    </header>
+
+  </div>
+
+  <h2>Setup</h2>
+  <ul>
+    <li>Plug in the earbuds to the receiving computer</li>
+    <li>Find the <strong>exact</strong> spot where the micrphone is located on this computer. On some laptops, you might
+      have two mics.
+    </li>
+    <li>Locate the earbuds that are plugged in to the receiving computer and place them close to the microphone of the
+      current computer</li>
+    <li>
+      Choose a File to send <input type="file" name="file-upload" id="file-upload" />
+    </li>
+    <li>
+      Press <button type="button" id="start-button">Start</button> to start using the microphone on this computer. This is required to send files.
+    </li>
+  </ul>
+
+  <section>
+    <div class="hidden" data-quiet-warning></div>
+    <pre data-quiet-receive-text-target>Debugging log will show up here. Waiting...</pre>
+  </section>
+
+  <div>
+    <br>
+    <canvas style="padding-left: 100px;" id="qr"></canvas>
+  </div>
+
+
+  <script src="utils/qrious.min.js"></script>
+
+  <script>
+    function displayQR(data) {
+      var qr = new QRious({
+        element: document.getElementById("qr"),
+        value: data,
+        size: 700,
+      });
+    }
+
+  </script>
+
+  <script>
+    const toBase64 = file =>
+      new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+      });
+
+    async function Main() {
+      let fileupload = document.querySelector("#file-upload");
+      fileupload.addEventListener("change", fileUploaded);
+    }
+
+    async function fileUploaded() {
+      const file = document.querySelector("#file-upload").files[0];
+      console.log(file.type);
+      let fileAsBase64 = await toBase64(file);
+      fileAsBase64 = fileAsBase64.split("base64,")[1];
+      console.log(fileAsBase64);
+
+      transferFile(fileAsBase64, file);
+
+    }
+
+    Main();
+  </script>
+
+  <script>
+
+    async function waitForNextBeep() {
+      let promise = new Promise((resolve) => {
+        document.addEventListener('SEQUENCE_ACCEPTED', function () {
+          resolve();
+        }, false);
+      });
+
+      return promise;
+    }
+
+    function sequenceAcceptedHandler() {
+      // TODO: SHOW NEXT QR CODE
+    }
+
+    document.addEventListener('SEQUENCE_ACCEPTED', sequenceAcceptedHandler, false);
+
+    async function transferFile(fileAsBase64, file) {
+      displayQR("FILE START");
+      console.log("waiting...")
+      await waitForNextBeep();
+      console.log("ARRIVED...")
+
+      var fileAsBase64Chunks = chunkSubstr(fileAsBase64, 1024);
+      console.log("chunks ", fileAsBase64Chunks.length);
+      for (let i = 0; i < fileAsBase64Chunks.length; i++) {
+        console.log("waiting...")
+        displayQR(fileAsBase64Chunks[i]);
+        await waitForNextBeep();
+        console.log("ARRIVED...")
+      }
+
+      displayQR("FILE END|" + file.name+"|"+file.type);
+      console.log("waiting...")
+      await waitForNextBeep();
+      console.log("ARRIVED...")
+    }
+
+    function chunkSubstr(str, size) {
+      const numChunks = Math.ceil(str.length / size)
+      const chunks = new Array(numChunks)
+
+      for (let i = 0, o = 0; i < numChunks; ++i, o += size) {
+        chunks[i] = str.substr(o, size)
+      }
+
+      return chunks
+    }
+  </script>
+
+
+  <script>
+    document.getElementById("start-button").addEventListener("click", startListening);
+  </script>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+
+</html>
