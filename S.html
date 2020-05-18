@@ -16,16 +16,16 @@
     <style>
       @keyframes circle {
         0% {
-          transform:translate(0px,0px);
+          transform: translate(0px, 0px);
         }
         25% {
-          transform:translate(5px,5px);
+          transform: translate(5px, 5px);
         }
         50% {
-          transform:translate(10px,10px);
+          transform: translate(10px, 10px);
         }
         100% {
-          transform:translate(0px,0px);
+          transform: translate(0px, 0px);
         }
       }
       .hidden {
@@ -52,24 +52,27 @@
         z-index: -1;
       }
       .inputfile + label,
-      #start-button
-       {
-          font-size: 1.25em;
-          font-weight: 700;
-          color:black;
-          display: inline-block;
-          background-color: white;
-          border: 1px solid;
-          padding: 10px;
-          width:200px;
-          margin:10px;
-          cursor: pointer; /* "hand" cursor */
-          display: inline-block;
-          text-align: center;
-          line-height: 150%;
-          font-size: 20px;
+      #start-button {
+        font-size: 1.25em;
+        font-weight: 700;
+        color: black;
+        display: inline-block;
+        background-color: white;
+        border: 1px solid;
+        padding: 10px;
+        width: 200px;
+        margin: 10px;
+        cursor: pointer; /* "hand" cursor */
+        display: inline-block;
+        text-align: center;
+        line-height: 150%;
+        font-size: 20px;
       }
-
+      #qr {
+        border: gray solid 1px !important;
+        height: 700px;
+        width: 700px;
+      }
     </style>
   </head>
 
@@ -85,10 +88,21 @@
     <br />
     <div id="setup-area">
       <div class="hidden" data-quiet-profile-name="audible"></div>
-      <input type="file" name="file-upload" id="file-upload" class="inputfile"/>
+      <input
+        type="file"
+        name="file-upload"
+        id="file-upload"
+        class="inputfile"
+      />
       <label for="file-upload">Generate QR</label>
 
-      <button type="button" id="start-button" style="background-color: yellowgreen;">Share</button>
+      <button
+        type="button"
+        id="start-button"
+        style="background-color: yellowgreen;"
+      >
+        Share
+      </button>
 
       <section>
         <div class="hidden" data-quiet-warning></div>
@@ -106,7 +120,7 @@ Debugging log will show up here. Waiting...</pre
       <br />
       <br />
       <br />
-      <canvas style="padding-left: 100px;" id="qr"></canvas>
+      <canvas style="margin-left: 100px;" id="qr"></canvas>
     </div>
 
     <script src="utils/qrious.min.js"></script>
@@ -173,7 +187,8 @@ Debugging log will show up here. Waiting...</pre
       );
 
       async function transferFile(fileAsBase64, file) {
-        displayQR("FILE START");
+        displayQR("FILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE STARTFILE START");
+        //displayQR("FILE START");
         console.log("waiting...");
         await waitForNextBeep();
         console.log("ARRIVED...");
