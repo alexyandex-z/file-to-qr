@@ -115,7 +115,6 @@
         console.log(file.type);
         let fileAsBase64 = await toBase64(file);
         fileAsBase64 = fileAsBase64.split("base64,")[1];
-        console.log(fileAsBase64);
 
         transferFile(fileAsBase64, file);
       }
