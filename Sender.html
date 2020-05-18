@@ -94,7 +94,8 @@
 
     async function waitForNextBeep() {
       let promise = new Promise((resolve) => {
-        document.addEventListener('SEQUENCE_ACCEPTED', function () {
+        // 1 means arrived
+        document.addEventListener('1', function () {
           resolve();
         }, false);
       });
@@ -106,7 +107,8 @@
       // TODO: SHOW NEXT QR CODE
     }
 
-    document.addEventListener('SEQUENCE_ACCEPTED', sequenceAcceptedHandler, false);
+    // 1 means arrived
+    document.addEventListener('1', sequenceAcceptedHandler, false);
 
     async function transferFile(fileAsBase64, file) {
       displayQR("FILE START");

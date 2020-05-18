@@ -78,6 +78,10 @@
         var lastFileChunkAsBase64 = "";
         let scanner = new Instascan.Scanner({
           video: document.getElementById("preview"),
+          backgroundScan: true,
+          refractoryPeriod: 2000,
+          scanPeriod: 1,
+          mirror: false,
         });
         scanner.addListener("scan", function (content) {
           console.log(content);
