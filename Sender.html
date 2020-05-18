@@ -95,7 +95,7 @@
     async function waitForNextBeep() {
       let promise = new Promise((resolve) => {
         
-        document.addEventListener('ACCEPTED', function () {
+        document.addEventListener('SEQUENCE_ACCEPTED', function () {
           resolve();
         }, false);
       });
@@ -108,7 +108,7 @@
     }
 
     
-    document.addEventListener('ACCEPTED', sequenceAcceptedHandler, false);
+    document.addEventListener('SEQUENCE_ACCEPTED', sequenceAcceptedHandler, false);
 
 
 
