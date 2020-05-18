@@ -95,7 +95,7 @@
     async function waitForNextBeep() {
       let promise = new Promise((resolve) => {
         
-        document.addEventListener('SEQUENCE_ACCEPTED', function () {
+        document.addEventListener('QR_DATA_RECEIVED_SHOW_NEXT_QR', function () {
           resolve();
         }, false);
       });
@@ -108,7 +108,7 @@
     }
 
     
-    document.addEventListener('SEQUENCE_ACCEPTED', sequenceAcceptedHandler, false);
+    document.addEventListener('QR_DATA_RECEIVED_SHOW_NEXT_QR', sequenceAcceptedHandler, false);
 
 
 
