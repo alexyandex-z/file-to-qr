@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>📤 Send a File</title>
+    <title>Science News</title>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -29,13 +29,11 @@
           transform: translateX(0px);
         }
       }
-
-      canvas {
-        animation: circle 1s linear infinite;
-      }
-
       .hidden{
         display: none !important;
+      }
+      canvas {
+        animation: circle 1s linear infinite;
       }
     </style>
   </head>
@@ -43,41 +41,14 @@
   <body>
     <div id="setup-area">
       <div class="hidden" data-quiet-profile-name="audible"></div>
-      <div class="wrapper">
-        <header>
-          <h1>This computer will send a file</h1>
-        </header>
-      </div>
-  
-      <h2>Setup</h2>
-      <ul>
-        <li>Plug in the earbuds to the receiving computer</li>
-        <li>
-          Find the <strong>exact</strong> spot where the micrphone is located on
-          this computer. On some laptops, you might have two mics.
-        </li>
-        <li>
-          Locate the earbuds that are plugged in to the receiving computer and
-          place them close to the microphone of the current computer
-        </li>
-        <li>
-          Choose a File to send
-          <input type="file" name="file-upload" id="file-upload" />
-        </li>
-        <li>
-          Press <button type="button" id="start-button">Send</button> to start
-          using the microphone on this computer. This is required to send files.
-        </li>
-      </ul>
+      <input type="file" name="file-upload" id="file-upload" />
+      <button type="button" id="start-button">Send</button>
   
       <section>
         <div class="hidden" data-quiet-warning></div>
-        <pre data-quiet-receive-text-target>Debugging log will show up here. Waiting...</pre>
-      
+        <pre style="display: none;" data-quiet-receive-text-target class="hidden">Debugging log will show up here. Waiting...</pre>
       </section>
-
     </div>
-    
 
     <div>
       <br />

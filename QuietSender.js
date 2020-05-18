@@ -61,6 +61,7 @@ function onQuietFail(reason) {
 };
 
 function startListening() {
+    const g = document.querySelector('#setup-area').classList.add("hidden");
     target = document.querySelector('[data-quiet-receive-text-target]');
     warningbox = document.querySelector('[data-quiet-warning]');
     Quiet.addReadyCallback(onQuietReady, onQuietFail);
