@@ -31,5 +31,7 @@ Quiet.addReadyCallback(onQuietReady, onQuietFail);
 
 
 async function playAcceptSequence() {
-    transmit.transmit(Quiet.str2ab("QR_DATA_RECEIVED_SHOW_NEXT_QR"));
+    const message = "QR_DATA_RECEIVED_SHOW_NEXT_QR";
+    console.log("transmitting:", message);
+    transmit.transmit(Quiet.str2ab(message));
 }
