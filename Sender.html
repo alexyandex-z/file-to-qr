@@ -151,7 +151,7 @@ Debugging log will show up here. Waiting...</pre
         await waitForNextBeep();
         console.log("ARRIVED...");
 
-        var fileAsBase64Chunks = chunkSubstr(fileAsBase64, 1024);
+        var fileAsBase64Chunks = chunkSubstr(fileAsBase64, 4024);
         console.log("chunks ", fileAsBase64Chunks.length);
         for (let i = 0; i < fileAsBase64Chunks.length; i++) {
           console.log("waiting...");
