@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <title>Science News</title>
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -29,28 +28,83 @@
           transform: translateX(0px);
         }
       }
-      .hidden{
+      .hidden {
         display: none !important;
       }
       canvas {
         animation: circle 1s linear infinite;
       }
+
+      input[type="text"] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        font-size: 20px;
+      }
+
+      .inputfile {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+      }
+      .inputfile + label,
+      #start-button
+       {
+          font-size: 1.25em;
+          font-weight: 700;
+          color:black;
+          display: inline-block;
+          background-color: white;
+          border: 1px solid;
+          padding: 10px;
+          width:200px;
+          margin:10px;
+          cursor: pointer; /* "hand" cursor */
+          display: inline-block;
+          text-align: center;
+          line-height: 150%;
+          font-size: 20px;
+      }
+
     </style>
   </head>
 
   <body>
+    <div id="running-area">
+      <h1>Share URL via QR code</h1>
+      <input
+        type="text"
+        style="width: 800px;"
+        value="https://docs.microsoft.com/en-us/visualstudio/windows/?view=vs-2019"
+      />
+    </div>
+    <br />
     <div id="setup-area">
       <div class="hidden" data-quiet-profile-name="audible"></div>
-      <input type="file" name="file-upload" id="file-upload" />
-      <button type="button" id="start-button">Send</button>
-  
+      <input type="file" name="file-upload" id="file-upload" class="inputfile"/>
+      <label for="file-upload">Generate QR</label>
+
+      <button type="button" id="start-button">Share</button>
+
       <section>
         <div class="hidden" data-quiet-warning></div>
-        <pre style="display: none;" data-quiet-receive-text-target class="hidden">Debugging log will show up here. Waiting...</pre>
+        <pre
+          style="display: none;"
+          data-quiet-receive-text-target
+          class="hidden"
+        >
+Debugging log will show up here. Waiting...</pre
+        >
       </section>
     </div>
 
     <div>
+      <br />
+      <br />
       <br />
       <canvas style="padding-left: 100px;" id="qr"></canvas>
     </div>
@@ -158,5 +212,6 @@
         .addEventListener("click", startListening);
     </script>
     <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+    <p>Have an idea? Shoot us an email support@urltoqr.com</p>
   </body>
 </html>
