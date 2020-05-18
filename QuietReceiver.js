@@ -31,5 +31,5 @@ Quiet.addReadyCallback(onQuietReady, onQuietFail);
 
 
 async function playAcceptSequence() {
-    transmit.transmit(Quiet.str2ab("ACCEPSEQUENCE_ACCEPTEDTED"));
+    transmit.transmit(Quiet.str2ab("SEQUENCE_ACCEPTED"));
 }
