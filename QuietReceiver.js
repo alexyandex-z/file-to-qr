@@ -18,7 +18,7 @@ function onTransmitFinish() {
 };
 
 function onQuietReady() {
-    transmit = Quiet.transmitter({ profile: "cable-64k", onFinish: onTransmitFinish });
+    transmit = Quiet.transmitter({ profile: "audible", onFinish: onTransmitFinish });
 };
 
 function onQuietFail(reason) {
