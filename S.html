@@ -152,7 +152,7 @@ Debugging log will show up here. Waiting...</pre
       async function waitForNextBeep() {
         let promise = new Promise((resolve) => {
           document.addEventListener(
-            "QR_DATA_RECEIVED_SHOW_NEXT_QR",
+            "SEQUENCE_ACCEPTED",
             function () {
               resolve();
             },
@@ -168,7 +168,7 @@ Debugging log will show up here. Waiting...</pre
       }
 
       document.addEventListener(
-        "QR_DATA_RECEIVED_SHOW_NEXT_QR",
+        "SEQUENCE_ACCEPTED",
         sequenceAcceptedHandler,
         false
       );
