@@ -18,14 +18,11 @@ var content = new ArrayBuffer(0);
 var warningbox;
 
 function onReceive(recvPayload) {
-    // content = Quiet.mergeab(content, recvPayload);
-    // var contentAsText = Quiet.ab2str(content);
-
     var payloadAsText = Quiet.ab2str(recvPayload);
     target.textContent = payloadAsText;
 
     if (payloadAsText) {
-        console.log("payloadAsText", payloadAsText);
+        // console.log("payloadAsText", payloadAsText);
         var event = new Event(payloadAsText);
         document.dispatchEvent(event)
     }
@@ -61,7 +58,7 @@ function onQuietFail(reason) {
 };
 
 function startListening() {
-    const g = document.querySelector('#setup-area').classList.add("hidden");
+    document.querySelector('#setup-area').classList.add("hidden");
     target = document.querySelector('[data-quiet-receive-text-target]');
     warningbox = document.querySelector('[data-quiet-warning]');
     Quiet.addReadyCallback(onQuietReady, onQuietFail);

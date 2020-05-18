@@ -4,16 +4,20 @@
     <title>📥 Receive a File</title>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     <script type="text/javascript" src="utils/instascan.min.js"></script>
-    <!-- <script type="text/javascript" src="Blob.js"></script> -->
     <script type="text/javascript" src="utils/FileSaver.min.js"></script>
 
     <script type="text/javascript" src="utils/quiet/quiet.js"></script>
-    <script type="text/javascript" src="QuietReceiver.js"></script> 
     <script
       async
       type="text/javascript"
       src="utils/quiet/quiet-emscripten.js"
     ></script>
+
+    <style>
+      .hidden{
+        display: none !important;
+      }
+    </style>
   </head>
 
   <body>
@@ -28,25 +32,32 @@
       <li>
         Place the ear buds close to the microphone of the file-sending computer
       </li>
-    </ul>
-    <h2>Camera Setup</h2>
-    <ul>
-      <li>Plug in a high resolution USB camera to this computer</li>
-      <li id="cameras-list">
-        <select id="cameras"></select>
-      </li>
       <li>
-        Point the camera to the other computer, facing the QR code <br />
-        <video id="preview"></video>
+        <button type="button" onclick="initializeSoundContext()">
+          Initialize Audio
+        </button>
       </li>
-      <li>
-        Each time a chunk of a file is received via a QR code, this computer
-        will play a loud beeping sound. This is an indicator to the sender
-        computer that the next chunk of a file can be sent.
-      </li>
-      <li>This repeates until the entire file is fully sent</li>
-      <li>The file will be automatically downloaded one fully received</li>
     </ul>
+    <div id="camera-area" class="hidden">
+      <h2>Camera Setup</h2>
+      <ul>
+        <li>Plug in a high resolution USB camera to this computer</li>
+        <li id="cameras-list">
+          <select id="cameras"></select>
+        </li>
+        <li>
+          Point the camera to the other computer, facing the QR code <br />
+          <video id="preview"></video>
+        </li>
+        <li>
+          Each time a chunk of a file is received via a QR code, this computer
+          will play a loud beeping sound. This is an indicator to the sender
+          computer that the next chunk of a file can be sent.
+        </li>
+        <li>This repeates until the entire file is fully sent</li>
+        <li>The file will be automatically downloaded one fully received</li>
+      </ul>
+    </div>
 
     <script type="text/javascript">
       var lastReceivedFile = "";
@@ -146,5 +157,7 @@
         }
       }
     </script>
+
+    <script type="text/javascript" src="QuietReceiver.js"></script>
   </body>
 </html>

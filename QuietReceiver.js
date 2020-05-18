@@ -18,7 +18,12 @@ function onTransmitFinish() {
 };
 
 function onQuietReady() {
+    // transmit = Quiet.transmitter({ profile: "audible", onFinish: onTransmitFinish });
+};
+
+function initializeSoundContext() {
     transmit = Quiet.transmitter({ profile: "audible", onFinish: onTransmitFinish });
+    document.getElementById("camera-area").classList.remove("hidden");
 };
 
 function onQuietFail(reason) {
@@ -31,7 +36,8 @@ Quiet.addReadyCallback(onQuietReady, onQuietFail);
 
 
 async function playAcceptSequence() {
-    const message = "QR_DATA_RECEIVED_SHOW_NEXT_QR";
-    console.log("transmitting:", message);
+    // const message = "QR_DATA_RECEIVED_SHOW_NEXT_QR"; 
+    const message = "SEQUENCE_ACCEPTED"; 
+    console.log("transmitting!!!!!:", message);
     transmit.transmit(Quiet.str2ab(message));
 }
