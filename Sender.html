@@ -14,7 +14,7 @@
 </head>
 
 <body>
-  <div class="hidden" data-quiet-profile-name="audible"></div>
+  <div class="hidden" data-quiet-profile-name="acable-64kudible"></div>
   <div class="wrapper">
     <header>
       <h1>This computer will send a file</h1>
@@ -94,8 +94,8 @@
 
     async function waitForNextBeep() {
       let promise = new Promise((resolve) => {
-        // 1 means arrived
-        document.addEventListener('1', function () {
+        
+        document.addEventListener('ACCEPTED', function () {
           resolve();
         }, false);
       });
@@ -107,8 +107,10 @@
       // TODO: SHOW NEXT QR CODE
     }
 
-    // 1 means arrived
-    document.addEventListener('1', sequenceAcceptedHandler, false);
+    
+    document.addEventListener('ACCEPTED', sequenceAcceptedHandler, false);
+
+
 
     async function transferFile(fileAsBase64, file) {
       displayQR("FILE START");

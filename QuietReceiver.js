@@ -18,7 +18,7 @@ function onTransmitFinish() {
 };
 
 function onQuietReady() {
-    transmit = Quiet.transmitter({ profile: "audible", onFinish: onTransmitFinish });
+    transmit = Quiet.transmitter({ profile: "cable-64k", onFinish: onTransmitFinish });
 };
 
 function onQuietFail(reason) {
@@ -31,6 +31,5 @@ Quiet.addReadyCallback(onQuietReady, onQuietFail);
 
 
 async function playAcceptSequence() {
-    // 1 means arrived, SEQUENCE_ACCEPTED
-    transmit.transmit(Quiet.str2ab("1"));
+    transmit.transmit(Quiet.str2ab("ACCEPTED"));
 }
