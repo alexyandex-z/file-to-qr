@@ -32,7 +32,7 @@
         display: none !important;
       }
       canvas {
-        animation: circle 0.3s linear infinite;
+        animation: circle 1s linear infinite;
       }
 
       input[type="text"] {
@@ -192,7 +192,7 @@ Debugging log will show up here. Waiting...</pre
         await waitForNextBeep();
         console.log("ARRIVED...");
 
-        var fileAsBase64Chunks = chunkSubstr(fileAsBase64, 2024);
+        var fileAsBase64Chunks = chunkSubstr(fileAsBase64, 1524);
         console.log("chunks ", fileAsBase64Chunks.length);
         for (let i = 0; i < fileAsBase64Chunks.length; i++) {
           console.log("waiting...");
