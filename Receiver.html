@@ -95,7 +95,7 @@
           mirror: false,
         });
         scanner.addListener("scan", function (content) {
-          console.log(content);
+          console.log("Characters received:",content.length);
           if (content === "FILE START") {
             fileChunksAsBase64 = "";
             playAcceptSequence();

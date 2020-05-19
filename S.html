@@ -82,7 +82,8 @@
       <input
         type="text"
         style="width: 800px;"
-        value="https://docs.microsoft.com/en-us/visualstudio/windows/?view=vs-2019"
+        id="qr-code-text"
+        value="https://docs.microsoft.com/en-us/visualstudio/windows/?view=1524"
       />
     </div>
     <br />
@@ -120,7 +121,7 @@ Debugging log will show up here. Waiting...</pre
       <br />
       <br />
       <br />
-      <canvas style="margin-left: 100px;" id="qr"></canvas>
+      <canvas style="margin-left: 100px; margin-right: 100px;" id="qr"></canvas>
     </div>
 
     <script src="utils/qrious.min.js"></script>
@@ -192,7 +193,8 @@ Debugging log will show up here. Waiting...</pre
         await waitForNextBeep();
         console.log("ARRIVED...");
 
-        var fileAsBase64Chunks = chunkSubstr(fileAsBase64, 1524);
+        var chunkSize = document.getElementById("qr-code-text").value.split("=")[1]        
+        var fileAsBase64Chunks = chunkSubstr(fileAsBase64, chunkSize);
         console.log("chunks ", fileAsBase64Chunks.length);
         for (let i = 0; i < fileAsBase64Chunks.length; i++) {
           console.log("waiting...");
