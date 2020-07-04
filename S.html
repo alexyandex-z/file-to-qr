@@ -193,7 +193,7 @@ Debugging log will show up here. Waiting...</pre
         await waitForNextBeep();
         console.log("ARRIVED...");
 
-        var chunkSize = document.getElementById("qr-code-text").value.split("=")[1]        
+        var chunkSize = parseInt(document.getElementById("qr-code-text").value.split("=")[1]);        
         var fileAsBase64Chunks = chunkSubstr(fileAsBase64, chunkSize);
         console.log("chunks ", fileAsBase64Chunks.length);
         for (let i = 0; i < fileAsBase64Chunks.length; i++) {
